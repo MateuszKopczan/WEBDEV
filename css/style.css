@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;  
+ }
+ .container{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(0, 100px);
+ }
+ .container > button{
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px, solid #FFFFFF;
+    outline: none;
+    background-color: rbga(255, 255, 255, 0.75);
+ }
+ button{
+   min-height: 100px;
+   min-width: 100px;
+ }
+ #reset{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 25px;
+ }
