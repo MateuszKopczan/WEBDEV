@@ -1,0 +1,8 @@
+#main{
+    width: 640px; 
+    height: 480px;
+    margin: auto;
+}
+#game{
+    background-color: black;
+}
