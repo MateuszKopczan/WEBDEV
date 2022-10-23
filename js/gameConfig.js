@@ -5,7 +5,7 @@ class GameConfig{
     canvasHeight = 400;
 
     // Blocks config
-    blockRowCount = 1;
+    blockRowCount = 5;
     blockColumnCount = 10;
     blockHeight = 20;
     blockWidth = 60;
