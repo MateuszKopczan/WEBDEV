@@ -1,0 +1,341 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Node Gallery
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+tags: [
+    {
+      "name": "user",
+      "description": "Operations about user",
+    },
+    {
+      "name": "gallery",
+      "description": "Gallery operations"
+    },
+    {
+      "name": "photos",
+      "description": "Photos operations",
+    }
+]
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /login:
+    x-swagger-router-controller: AuthController
+    post:
+      tags: ["user"]
+      description: Login user
+      operationId: login
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: body
+          name: credentials
+          description: User credentials
+          required: false
+          schema:
+            $ref: "#/definitions/LoginUserDTO"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /register:
+    x-swagger-router-controller: AuthController
+    post:
+      tags: ["user"]
+      description: Register new user
+      operationId: register
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: body
+          name: data
+          description: User data
+          required: false
+          schema:
+            $ref: "#/definitions/RegisterUserDTO"
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users:
+    x-swagger-router-controller: UserController
+    get:
+      tags: ["user"]
+      description: Get user data
+      operationId: getUser
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: User's ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/UserDTO"
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags: ["user"]
+      description: Edit user data
+      operationId: editUser
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: User's ID
+          required: true
+          type: integer
+        - in: body
+          name: data
+          description: User's data
+          required: false
+          schema:
+            $ref: "#/definitions/EditUserDTO"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: ["user"]
+      description: Delete user
+      operationId: deleteUser
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: User's ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /gallery:
+    x-swagger-router-controller: GalleryController
+    post:
+      tags: ["gallery"]
+      description: Create gallery
+      operationId: create
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: body
+          name: gallery data
+          description: Gallery data
+          required: true
+          schema:
+            $ref: "#/definitions/GalleryDTO"
+      responses:
+        "201":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    get:
+      tags: ["gallery"]
+      description: Get gallery
+      operationId: get
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: Gallery ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GalleryDTO"
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: ["gallery"]
+      description: Delete gallery
+      operationId: deleteGallery
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: Gallery ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /photos:
+    x-swagger-router-controller: PhotoController
+    post:
+      tags: ["photos"]
+      description: Add photo to gallery
+      operationId: add
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: Gallery ID
+          required: true
+          type: integer
+        - in: body
+          name: photo data
+          description: Photo data
+          required: true
+          schema:
+            $ref: "#/definitions/PhotoDTO"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: ["gallery"]
+      description: Delete photo
+      operationId: removePhoto
+      produces: [application/json, text/plain]
+      consumes: [application/json]
+      parameters:
+        - in: query
+          name: id
+          description: Gallery ID
+          required: true
+          type: integer
+        - in: query
+          name: photo_id
+          description: Photo ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  RegisterUserDTO:
+    required:
+      - userName
+      - password
+    properties:
+      userName:
+        type: string
+      password:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  LoginUserDTO:
+    required:
+      - userName
+      - password
+    properties:
+      userName:
+        type: string
+      password:
+        type: string
+  EditUserDTO:
+    required:
+      - firstName
+      - lastName
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  UserDTO:
+    required:
+      - username
+      - firstName
+      - lastName
+    properties:
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  GalleryDTO:
+    required:
+      - name
+      - type
+      - category
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+      category:
+        type: string
+      photos:
+        type: array
+        items: { "$ref": "#/definitions/PhotoDTO"}
+  PhotoDTO:
+    required:
+      - name
+      - extension
+      - content
+    properties:
+      name:
+        type: string
+      extension:
+        type: string
+      content:
+        type: string
+  ErrorResponse:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+
