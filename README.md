@@ -1,1 +1,1 @@
-# WEBDEV
+# Skeleton project for Swagger
