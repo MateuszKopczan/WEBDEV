@@ -1,0 +1,25 @@
+<table style="width:100%">
+  <tr>
+    <th>Podgląd</th>
+    <th>Nazwa</th>
+    <th>Rozmiar</th>
+    <th>Akcje</th>
+  </tr>
+    {{# each items }}
+    <tr>
+        <td style="text-align: center">
+            <img src="{{ this.sciezka }}/{{ this.nazwa }}.jpg" alt="..." width="200px">
+        </td>
+        <td style="text-align: center">
+            <a href="../pictures/{{ this.id }}">{{ this.nazwa }}</a>
+        </td>
+        <td style="text-align: center">
+            {{ this.rozmiar }}
+        </td>
+        <td style="text-align: center">
+            <button type="submit"><a href="../pictures/edit/{{ this.id }}">Edytuj</a></button>
+            <button type="submit"><a href="../pictures/delete/{{ this.id }}">Usuń</a></button>
+        </td>
+    </tr>
+    {{/each }}
+</table>
