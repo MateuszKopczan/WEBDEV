@@ -1,0 +1,33 @@
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>Nazwa</th>
+      <th>Podgląd</th>
+      <th>Rozmiar</th>
+      <th>Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each items}}
+    <tr>
+        <td>
+        <div class="d-flex align-items-center">
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{this.nazwa}}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <img src="{{ this.sciezka }}/{{ this.nazwa }}.jpg"  alt="" style="width: 200px;"/>
+
+      </td>
+      <td>{{this.rozmiar}}</td>
+      <td>
+        <a href="../pictures/{{ this.id }}" class="btn btn-primary btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" role="button">Wyświetl</a>
+        <a href="../pictures/edit/{{ this.id }}" class="btn btn-primary btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" role="button">Edytuj</a>
+        <a href="../pictures/delete/{{ this.id }}" class="btn btn-danger btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" role="button">Usuń</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
