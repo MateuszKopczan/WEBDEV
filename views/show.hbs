@@ -1,0 +1,7 @@
+<div class="p-5 text-center bg-light">
+    <h1 class="mb-3"><img src="{{ item.sciezka }}/{{ item.nazwa }}.jpg" alt="..."  class="img-fluid img-thumbnail" ></h1>
+    <h4 class="mb-3">Nazwa: {{ item.nazwa }}</h4>
+    <h4 class="mb-3">Rozmiar: {{ item.rozmiar }}</h4>
+    <a href="/pictures/edit/{{ item.id }}" class="btn btn-primary btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" role="button">Edytuj</a>
+    <a href="/pictures/delete/{{ item.id }}" class="btn btn-danger btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" role="button">Usuń</a>
+</div>
